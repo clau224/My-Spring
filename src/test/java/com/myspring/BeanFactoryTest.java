@@ -1,9 +1,9 @@
 package com.myspring;
 
 import com.myspring.Service.HiService;
+import com.myspring.factory.AutowireCapableBeanFactory;
+import com.myspring.factory.BeanFactory;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * @auther liujiawen04@meituan.com
@@ -14,11 +14,11 @@ public class BeanFactoryTest {
     @Test
     public void testRegisterBean(){
 
-        BeanFactory beanFactory = new BeanFactory();
+        BeanFactory beanFactory = new AutowireCapableBeanFactory();
 
-        BeanDefinition beanDefinition = new BeanDefinition(new HiService());
-
-        beanFactory.registerBeanDefinition(beanDefinition.getObject().getClass().getName(), beanDefinition);
+        BeanDefinition beanDefinition = new BeanDefinition();
+        beanDefinition.setObjectClassName(HiService.class.getName());
+        beanFactory.registerBeanDefinition(HiService.class.getName(), beanDefinition);
 
         HiService hiService = (HiService) beanFactory.getBean(HiService.class.getName());
         hiService.sayHi();
