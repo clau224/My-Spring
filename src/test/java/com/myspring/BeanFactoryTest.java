@@ -12,12 +12,17 @@ import org.junit.Test;
 public class BeanFactoryTest {
 
     @Test
-    public void testRegisterBean(){
+    public void testRegisterBean() throws Exception{
 
         BeanFactory beanFactory = new AutowireCapableBeanFactory();
 
         BeanDefinition beanDefinition = new BeanDefinition();
         beanDefinition.setObjectClassName(HiService.class.getName());
+
+        PropertyValues propertyValues = new PropertyValues();
+        propertyValues.addPropertyValue(new PropertyValue("message", "Today is Saturday"));
+        beanDefinition.setPropertyValues(propertyValues);
+
         beanFactory.registerBeanDefinition(HiService.class.getName(), beanDefinition);
 
         HiService hiService = (HiService) beanFactory.getBean(HiService.class.getName());
