@@ -1,9 +1,12 @@
 package com.myspring;
 
-import com.myspring.Service.HiService;
 import com.myspring.factory.AutowireCapableBeanFactory;
 import com.myspring.factory.BeanFactory;
+import com.myspring.io.ResourceLoader;
+import com.myspring.xml.XmlBeanDefinitionReader;
 import org.junit.Test;
+
+import java.util.Map;
 
 /**
  * @auther liujiawen04@meituan.com
@@ -14,19 +17,16 @@ public class BeanFactoryTest {
     @Test
     public void testRegisterBean() throws Exception{
 
+        XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(new ResourceLoader());
+        xmlBeanDefinitionReader.loadBeanDefinitions("myioc.xml");
+
         BeanFactory beanFactory = new AutowireCapableBeanFactory();
+        for(Map.Entry<String, BeanDefinition> beanDefinitionEntry : xmlBeanDefinitionReader.getRegistry().entrySet()){
+            beanFactory.registerBeanDefinition(beanDefinitionEntry.getKey(), beanDefinitionEntry.getValue());
+        }
 
-        BeanDefinition beanDefinition = new BeanDefinition();
-        beanDefinition.setObjectClassName(HiService.class.getName());
+        HiService hiService = (HiService)beanFactory.getBean("hiService");
 
-        PropertyValues propertyValues = new PropertyValues();
-        propertyValues.addPropertyValue(new PropertyValue("message", "Today is Saturday"));
-        beanDefinition.setPropertyValues(propertyValues);
-
-        beanFactory.registerBeanDefinition(HiService.class.getName(), beanDefinition);
-
-        HiService hiService = (HiService) beanFactory.getBean(HiService.class.getName());
-        hiService.sayHi();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.myspring.Service;
+package com.myspring;
 
 /**
  * @auther liujiawen04@meituan.com
