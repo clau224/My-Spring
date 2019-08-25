@@ -3,8 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean name="outputService" class="com.myspring.OutputService">
+        <property name="hiService" ref="hiService"></property>
+    </bean>
+
     <bean name="hiService" class="com.myspring.HiService">
         <property name="message" value="Today is Sunday"></property>
+        <property name="outputService" ref="outputService"></property>
     </bean>
 
 </beans>

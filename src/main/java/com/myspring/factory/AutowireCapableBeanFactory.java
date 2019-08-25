@@ -1,6 +1,7 @@
 package com.myspring.factory;
 
 import com.myspring.BeanDefinition;
+import com.myspring.BeanReference;
 import com.myspring.PropertyValue;
 
 import java.lang.reflect.Field;
@@ -14,6 +15,7 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
     @Override
     protected Object doCreateBean(BeanDefinition beanDefinition) throws Exception {
         Object object = beanDefinition.getObjectClass().newInstance();
+        beanDefinition.setObject(object);
         applyPropertyValues(object, beanDefinition);
         return object;
     }
@@ -22,7 +24,12 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
         for (PropertyValue propertyValue : beanDefinition.getPropertyValues().getPropertyValueList()) {
             Field field = object.getClass().getDeclaredField(propertyValue.getName());
             field.setAccessible(true);
-            field.set(object, propertyValue.getValue());
+            Object value = propertyValue.getValue();
+            if(value instanceof BeanReference){
+                BeanReference beanReference = (BeanReference) value;
+                value = getBean(beanReference.getName());
+            }
+            field.set(object, value);
         }
     }
 }

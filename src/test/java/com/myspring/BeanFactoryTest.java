@@ -1,5 +1,6 @@
 package com.myspring;
 
+import com.myspring.factory.AbstractBeanFactory;
 import com.myspring.factory.AutowireCapableBeanFactory;
 import com.myspring.factory.BeanFactory;
 import com.myspring.io.ResourceLoader;
@@ -26,7 +27,24 @@ public class BeanFactoryTest {
         }
 
         HiService hiService = (HiService)beanFactory.getBean("hiService");
+        hiService.sayHi();
+    }
 
+    @Test
+    public void testPreInstantiate() throws Exception{
+
+        XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(new ResourceLoader());
+        xmlBeanDefinitionReader.loadBeanDefinitions("myioc.xml");
+
+        AbstractBeanFactory beanFactory = new AutowireCapableBeanFactory();
+        for(Map.Entry<String, BeanDefinition> beanDefinitionEntry : xmlBeanDefinitionReader.getRegistry().entrySet()){
+            beanFactory.registerBeanDefinition(beanDefinitionEntry.getKey(), beanDefinitionEntry.getValue());
+        }
+
+        beanFactory.preInstantiateSingletons();
+
+        HiService hiService = (HiService)beanFactory.getBean("hiService");
+        hiService.sayHi();
     }
 
 }

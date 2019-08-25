@@ -8,8 +8,14 @@ public class HiService {
 
     private String message;
 
+    private OutputService outputService;
+
     public void sayHi(){
-        System.out.println("Hi~ALL!" + message);
+        outputService.output(message);
+    }
+
+    public void setOutputService(OutputService outputService) {
+        this.outputService = outputService;
     }
 
     public void setMessage(String message) {
