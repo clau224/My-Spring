@@ -7,7 +7,7 @@
         <property name="hiService" ref="hiService"></property>
     </bean>
 
-    <bean name="hiService" class="com.myspring.HiService">
+    <bean name="hiService" class="com.myspring.HiServiceImpl">
         <property name="message" value="Today is Sunday"></property>
         <property name="outputService" ref="outputService"></property>
     </bean>
