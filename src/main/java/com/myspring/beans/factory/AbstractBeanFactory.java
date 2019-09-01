@@ -1,6 +1,6 @@
-package com.myspring.factory;
+package com.myspring.beans.factory;
 
-import com.myspring.BeanDefinition;
+import com.myspring.beans.BeanDefinition;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -29,13 +29,10 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         return bean;
     }
 
-    @Override
     public void registerBeanDefinition(String name, BeanDefinition beanDefinition) throws Exception{
         beanDefinitionMap.put(name, beanDefinition);
         beanDefinitionNames.add(name);
     }
-
-    protected abstract Object doCreateBean(BeanDefinition beanDefinition) throws Exception;
 
     public void preInstantiateSingletons() throws Exception{
         for(Iterator it = this.beanDefinitionNames.iterator(); it.hasNext(); ){
@@ -43,4 +40,6 @@ public abstract class AbstractBeanFactory implements BeanFactory {
             getBean(beanName);
         }
     }
+
+    protected abstract Object doCreateBean(BeanDefinition beanDefinition) throws Exception;
 }

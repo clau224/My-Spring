@@ -1,8 +1,8 @@
-package com.myspring.factory;
+package com.myspring.beans.factory;
 
-import com.myspring.BeanDefinition;
+import com.myspring.beans.BeanDefinition;
 import com.myspring.BeanReference;
-import com.myspring.PropertyValue;
+import com.myspring.beans.PropertyValue;
 
 import java.lang.reflect.Field;
 

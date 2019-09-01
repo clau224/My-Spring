@@ -1,4 +1,4 @@
-package com.myspring.io;
+package com.myspring.beans.io;
 
 import java.net.URL;
 

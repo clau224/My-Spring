@@ -1,7 +1,7 @@
-package com.myspring.xml;
+package com.myspring.beans.xml;
 
-import com.myspring.BeanDefinition;
-import com.myspring.io.ResourceLoader;
+import com.myspring.beans.BeanDefinition;
+import com.myspring.beans.io.ResourceLoader;
 import org.junit.Test;
 
 import java.util.Map;

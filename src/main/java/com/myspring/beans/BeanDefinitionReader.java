@@ -1,4 +1,4 @@
-package com.myspring.xml;
+package com.myspring.beans;
 
 /**
  * @auther liujiawen04@meituan.com

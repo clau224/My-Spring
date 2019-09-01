@@ -1,10 +1,11 @@
 package com.myspring;
 
-import com.myspring.factory.AbstractBeanFactory;
-import com.myspring.factory.AutowireCapableBeanFactory;
-import com.myspring.factory.BeanFactory;
-import com.myspring.io.ResourceLoader;
-import com.myspring.xml.XmlBeanDefinitionReader;
+import com.myspring.beans.BeanDefinition;
+import com.myspring.beans.factory.AbstractBeanFactory;
+import com.myspring.beans.factory.AutowireCapableBeanFactory;
+import com.myspring.beans.factory.BeanFactory;
+import com.myspring.beans.io.ResourceLoader;
+import com.myspring.beans.xml.XmlBeanDefinitionReader;
 import org.junit.Test;
 
 import java.util.Map;
@@ -21,7 +22,7 @@ public class BeanFactoryTest {
         XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(new ResourceLoader());
         xmlBeanDefinitionReader.loadBeanDefinitions("myioc.xml");
 
-        BeanFactory beanFactory = new AutowireCapableBeanFactory();
+        AbstractBeanFactory beanFactory = new AutowireCapableBeanFactory();
         for(Map.Entry<String, BeanDefinition> beanDefinitionEntry : xmlBeanDefinitionReader.getRegistry().entrySet()){
             beanFactory.registerBeanDefinition(beanDefinitionEntry.getKey(), beanDefinitionEntry.getValue());
         }
